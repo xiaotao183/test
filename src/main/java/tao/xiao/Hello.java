@@ -2,7 +2,7 @@ package tao.xiao;
 
 public class Hello {
 	private String message;
-
+	
 	public String getMessage() {
 		return message;
 	}
@@ -11,4 +11,8 @@ public class Hello {
 		this.message = message;
 	}
 
+	@Override
+	public String toString() {
+		return message;
+	}
 }
