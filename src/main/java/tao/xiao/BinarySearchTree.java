@@ -3,7 +3,7 @@ package tao.xiao;
 public class BinarySearchTree {
 	private Node root;
 
-	private static class Node {
+	protected static class Node {
 		private int element;
 		private Node left;
 		private Node right;
@@ -25,7 +25,7 @@ public class BinarySearchTree {
 		}
 	}
 
-	private Node insert(Node node, int value) {
+	protected Node insert(Node node, int value) {
 		if (node == null) {
 			node = new Node(value);
 		} else {
@@ -42,10 +42,14 @@ public class BinarySearchTree {
 	}
 
 	public void printTree() {
-		printTree(root, "", root == null ? 0 : root.element);
+		printTree(getRoot(), "", getRoot() == null ? 0 : getRoot().element);
 	}
 
-	private void printTree(Node node, String ancenstor, int parent) {
+	protected Node getRoot() {
+		return root;
+	}
+
+	protected void printTree(Node node, String ancenstor, int parent) {
 		if (node == null) {
 			System.out.println(parent + ":" + ancenstor + ":empty node");
 		} else {
@@ -56,10 +60,10 @@ public class BinarySearchTree {
 	}
 	
 	public int treeDepth() {
-		return treeDepth(root);
+		return treeDepth(getRoot());
 	}
 	
-	private int treeDepth(Node node) {
+	protected int treeDepth(Node node) {
 		int leftTreeDepth = 0;
 		int rightTreeDepth = 0;
 		
@@ -74,7 +78,7 @@ public class BinarySearchTree {
 	}
 	
 	public int findMin() {
-		Node minNode = findMin(root);
+		Node minNode = findMin(getRoot());
 		
 		if (minNode == null) {
 			return 0;
@@ -83,7 +87,7 @@ public class BinarySearchTree {
 		}
 	}
 	
-	private Node findMin(Node node) {
+	protected Node findMin(Node node) {
 		if (node == null) {
 			return null;
 		} else if (node.left == null) {
@@ -94,7 +98,7 @@ public class BinarySearchTree {
 	}
 	
 	public int findMax() {
-		Node maxNode = findMax(root);
+		Node maxNode = findMax(getRoot());
 		
 		if (maxNode == null) {
 			return 0;
@@ -103,7 +107,7 @@ public class BinarySearchTree {
 		}
 	}
 	
-	private Node findMax(Node node) {
+	protected Node findMax(Node node) {
 		if (node == null) {
 			return null;
 		} else if (node.right == null) {
@@ -122,7 +126,7 @@ public class BinarySearchTree {
 		}
 	}
 	
-	private Node delete(Node node, int value) {
+	protected Node delete(Node node, int value) {
 		if (node == null) {
 			throw new IllegalArgumentException();
 		} else {
@@ -144,39 +148,5 @@ public class BinarySearchTree {
 			
 			return node;
 		}
-	}
-
-	public static void main(String[] args) {
-		BinarySearchTree bst = new BinarySearchTree();
-		bst.printTree();
-
-		System.out.println(bst.insert(20));
-		System.out.println(bst.insert(10));
-		System.out.println(bst.insert(1));
-		System.out.println(bst.insert(11));
-		System.out.println(bst.insert(12));
-		System.out.println(bst.insert(30));
-		System.out.println(bst.insert(25));
-		System.out.println(bst.insert(40));
-		System.out.println(bst.insert(35));
-		System.out.println(bst.insert(50));
-		System.out.println(bst.insert(50));
-
-		bst.printTree();
-		
-		System.out.println(bst.treeDepth());
-		
-		System.out.println(bst.insert(36));
-		bst.printTree();
-		System.out.println(bst.treeDepth());
-		
-		System.out.println(bst.findMin());
-		System.out.println(bst.findMax());
-		
-		System.out.println(bst.delete(100));
-		bst.printTree();
-		
-		System.out.println(bst.delete(30));
-		bst.printTree();
 	}
 }
