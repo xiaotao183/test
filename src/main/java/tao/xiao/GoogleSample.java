@@ -1,11 +1,7 @@
 package tao.xiao;
 
-
 /**
- * Array traversal like this: 
- * Input: 1 2 3 
- * 		  4 5 6 
- * 	      7 8 9 
+ * Array traversal like this: Input: 1 2 3 4 5 6 7 8 9
  * 
  * Output: 124753689
  * 
@@ -14,57 +10,56 @@ package tao.xiao;
  */
 public class GoogleSample {
 	public static void main(String[] args) {
-		int[][] input = { { 1, 2, 3, 4}, 
-					      { 5, 6, 7, 8}, 
-					      { 9, 10, 11, 12},
-					      {13, 14, 15, 16} };
-		
-		int[] output = new GoogleSample().convert(input);
-		
-		for (int i = 0; i < output.length; i ++) {
+		int[][] input = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 },
+				{ 13, 14, 15, 16 }, {17, 18, 19, 20} };
+
+		int[] output = new GoogleSample().build(input, 5, 4);
+
+		for (int i = 0; i < output.length; i++) {
 			System.out.print(output[i] + ",");
 		}
 	}
 
-	public int[] convert(int[][] input) {
-		int length = input.length;
-		int size = length * length;
-		int[] output = new int[size];
-		
-		return buildLowerPart(
-				input,
-				buildMiddlePart(input, buildUpperPart(input, output, 0),
-						(size - length) / 2), (size - length) / 2 + length);
-	}
-	
-	private int[] buildUpperPart(int[][] input, int[] output, int startPos) {
-		int length = input.length;
-		
-		for (int i = 0; i < length - 1; i ++) {
-			for (int j = 0; j < length - i - 1; j ++) {
-				output[startPos++] = input[i][j];
+	private int[] build(int[][] input, int row, int column) {
+		int sumOfIndex = row + column - 2;
+		boolean upwards = true;
+		int rowIndex = 0;
+		int columnIndex = 0;
+		int[] output = new int[row * column];
+		int i = 0;
+
+		for (int j = 0; j <= sumOfIndex;) {
+			output[i] = input[rowIndex][columnIndex];
+			i++;
+
+			if (upwards) {
+				rowIndex--;
+				columnIndex++;
+			} else {
+				rowIndex++;
+				columnIndex--;
 			}
-		}
-		
-		return output;
-	}
-	
-	private int[] buildMiddlePart(int[][] input, int[] output, int startPos) {
-		int length = input.length;
-		
-		for (int i = 1, j = 0; j < length; i ++, j++) {
-			output[startPos++] = input[length - i][j];
-		}
-		
-		return output;
-	}
-	
-	private int[] buildLowerPart(int[][] input, int[] output, int startPos) {
-		int length = input.length;
-		
-		for (int i = 1; i < length; i ++) {
-			for (int j = i; j > 0; j --) {
-				output[startPos++] = input[i][length - j];
+
+			if (rowIndex == row) {
+				j++;
+				upwards = !upwards;
+				rowIndex--;
+				columnIndex = j - rowIndex;
+			} else if (columnIndex < 0) {
+				j++;
+				columnIndex = 0;
+				rowIndex = j - columnIndex;
+				upwards = !upwards;
+			} else if (columnIndex == column) {
+				j++;
+				columnIndex--;
+				rowIndex = j - columnIndex;
+				upwards = !upwards;
+			} else if (rowIndex < 0) {
+				j++;
+				rowIndex = 0;
+				columnIndex = j - rowIndex;
+				upwards = !upwards;
 			}
 		}
 		
