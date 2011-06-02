@@ -1,1 +1,1 @@
-This is my git repo pilot project, will do.
+This is my git repo pilot project, more info will be provided.
