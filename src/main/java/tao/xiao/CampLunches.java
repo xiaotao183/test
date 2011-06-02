@@ -1,3 +1,5 @@
+package tao.xiao;
+
 import org.apache.commons.math.util.MathUtils;
 
 public class CampLunches {
