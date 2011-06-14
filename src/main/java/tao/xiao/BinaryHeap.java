@@ -65,8 +65,15 @@ public class BinaryHeap {
 	}
 
 	public static void main(String[] args) {
-		BinaryHeap bh = new BinaryHeap();
-		bh.buildHeap(new int[] { 4, 5, 1, 6, 9, 9, 2, 7, 8, 3 });
-		bh.print();
+//		BinaryHeap bh = new BinaryHeap();
+//		bh.buildHeap(new int[] { 4, 5, 1, 6, 9, 9, 2, 7, 8, 3 });
+//		bh.print();
+		
+		System.out.println(10 >> 1);
+		int i = 16;
+		System.out.println(Integer.toBinaryString(i).length());
+		int x = (int) Math.pow(2, Integer.toBinaryString(i).length() - 1);
+		
+		System.out.println(i == (i & x));
 	}
 }
