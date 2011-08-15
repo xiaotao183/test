@@ -37,7 +37,7 @@ public class BinarySearchTree {
 				node.right = insert(node.right, value);
 			}
 		}
-		
+
 		return node;
 	}
 
@@ -53,70 +53,71 @@ public class BinarySearchTree {
 		if (node == null) {
 			System.out.println(parent + ":" + ancenstor + ":empty node");
 		} else {
-			System.out.println(parent + ":" + ancenstor + ":root:" + node.element);
+			System.out.println(parent + ":" + ancenstor + ":root:"
+					+ node.element);
 			printTree(node.left, "left", node.element);
 			printTree(node.right, "right", node.element);
 		}
 	}
-	
+
 	public int treeDepth() {
 		return treeDepth(getRoot());
 	}
-	
+
 	protected int treeDepth(Node node) {
 		int leftTreeDepth = 0;
 		int rightTreeDepth = 0;
-		
+
 		if (node == null) {
 			return 0;
 		} else {
 			leftTreeDepth = treeDepth(node.left);
 			rightTreeDepth = treeDepth(node.right);
-			
+
 			return Math.max(leftTreeDepth, rightTreeDepth) + 1;
 		}
 	}
-	
+
 	public int findMin() {
 		Node minNode = findMin(getRoot());
-		
+
 		if (minNode == null) {
 			return 0;
 		} else {
 			return minNode.element;
 		}
 	}
-	
+
 	protected Node findMin(Node node) {
 		if (node == null) {
 			return null;
 		} else if (node.left == null) {
 			return node;
-		}else {
+		} else {
 			return findMin(node.left);
 		}
 	}
-	
+
 	public int findMax() {
 		Node maxNode = findMax(getRoot());
-		
+
 		if (maxNode == null) {
 			return 0;
 		} else {
 			return maxNode.element;
 		}
 	}
-	
+
 	protected Node findMax(Node node) {
 		if (node == null) {
 			return null;
 		} else if (node.right == null) {
 			return node;
-		}else {
+		} else {
 			return findMax(node.right);
 		}
 	}
-	
+
 	public boolean delete(int value) {
 		try {
 			root = delete(root, value);
@@ -125,7 +126,7 @@ public class BinarySearchTree {
 			return false;
 		}
 	}
-	
+
 	protected Node delete(Node node, int value) {
 		if (node == null) {
 			throw new IllegalArgumentException();
@@ -145,8 +146,35 @@ public class BinarySearchTree {
 					node.right = delete(node.right, node.element);
 				}
 			}
-			
+
 			return node;
 		}
+	}
+
+	public boolean find(int element) {
+		return find(root, element);
+	}
+
+	private boolean find(Node node, int element) {
+		if (node == null) {
+			return false;
+		} else if (node.element == element) {
+			return true;
+		} else if (node.element > element) {
+			return find(node.left, element);
+		} else {
+			return find(node.right, element);
+		}
+	}
+	
+	public static void main(String[] args) {
+		BinarySearchTree bst = new BinarySearchTree();
+		bst.insert(10);
+		bst.insert(15);
+		bst.insert(7);
+		bst.insert(10);
+		bst.insert(1);
+		
+		System.out.println(bst.find(1));
 	}
 }
