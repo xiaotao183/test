@@ -22,7 +22,7 @@ public class ParenthesisBuilder {
 				stringBuilder.append(parenthsisPairs).append(" ");
 			}
 		}
-
+		
 		return stringBuilder.toString();
 	}
 
