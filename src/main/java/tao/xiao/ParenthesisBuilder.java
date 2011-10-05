@@ -10,7 +10,19 @@ public class ParenthesisBuilder {
 	private Set<String> parenthesisSet;
 
 	public static void main(String[] args) {
-		System.out.println(new ParenthesisBuilder().build(3));
+		// System.out.println(new ParenthesisBuilder().build(3));
+
+		try {
+			throw new NullPointerException();
+		} catch (NullPointerException ee) {
+			System.out.println("c1");
+			throw ee;
+		} catch (Exception e) {
+			System.out.println("c");
+		} finally {
+
+			System.out.println("test");
+		}
 	}
 
 	public String build(int numberOfParenthesis) {
@@ -22,7 +34,7 @@ public class ParenthesisBuilder {
 				stringBuilder.append(parenthsisPairs).append(" ");
 			}
 		}
-		
+
 		return stringBuilder.toString();
 	}
 
