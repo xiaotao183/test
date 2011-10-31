@@ -34,57 +34,50 @@ public class ThreadTests {
 	}
 
 	class T1 implements Runnable {
-		private AnotherResource resource;
-		private volatile boolean cancel = false;
+		private final ChocolateBoiler resource;
 
-		public T1(AnotherResource resource) {
+		public T1(ChocolateBoiler resource) {
 			this.resource = resource;
 		}
 
+		@Override
 		public void run() {
-			while (!cancel) {
-				System.out.println("--in--");
-			}
-
-			System.out.println("--out--");
-		}
-
-		public void cancel() {
-			this.cancel = true;
+			System.out.println("--run boil");
+			resource.boil();
+			System.out.println("boil done");
 		}
 
 	}
 
 	class T2 implements Runnable {
-		private AnotherResource resource;
+		private final ChocolateBoiler resource;
 
-		public T2(AnotherResource resource) {
+		public T2(ChocolateBoiler resource) {
 			this.resource = resource;
 		}
 
+		@Override
 		public void run() {
-			resource.ia();
+			System.out.println("--run drain");
+			resource.drain();
+			System.out.println("drain done");
 		}
 
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		// AnotherResource anotherResource = new AnotherResource();
-		// ThreadTests tests = new ThreadTests();
-		// ThreadTests.T1 t1 = tests.new T1(anotherResource);
-		//
-		// ExecutorService es = Executors.newCachedThreadPool();
-		// es.execute(t1);
-		//
-		// es.shutdown();
-		//
-		// TimeUnit.SECONDS.sleep(1);
-		//
-		// t1.cancel();
-		// System.out.println("--cancel");
-
-		System.out.println(getCount());
-		System.out.println(I);
+		 ChocolateBoiler boiler = ChocolateBoiler.getInstance();
+		 ThreadTests tests = new ThreadTests();
+		 ThreadTests.T1 t1 = tests.new T1(boiler);
+		 ThreadTests.T2 t2 = tests.new T2(boiler);
+		
+		 ExecutorService es = Executors.newCachedThreadPool();
+		 es.execute(t1);
+		 es.execute(t2);
+		
+		 es.shutdown();
+		
+		 TimeUnit.SECONDS.sleep(100);
 	}
 
 	public static int getCount() {
